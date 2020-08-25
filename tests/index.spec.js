@@ -42,12 +42,12 @@ describe('load_config', () => {
       expect(CONFIG.ftp.name).toEqual('hello there, ftp uploading');
       expect(CONFIG.http.params).toEqual(['array', 'of', 'values']);
       expect(CONFIG.ftp.lastname).toBeUndefined();
-      expect(CONFIG.ftp.enabled).toEqual(false);
+      expect(CONFIG.ftp.enabled).toEqual('no');
       expect(CONFIG.ftp['path']).toEqual('/etc/var/uploads');
       expect(CONFIG.ftp).toEqual({
         name: 'hello there, ftp uploading',
         path: '/etc/var/uploads',
-        enables: false,
+        enabled: 'no',
       });
     });
   });
