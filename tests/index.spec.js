@@ -50,5 +50,33 @@ describe('load_config', () => {
         enabled: 'no',
       });
     });
+
+    test('should return the correct config based on override parameters', () => {
+      const CONFIG = load_config(configPath, ['staging', 'itscript']);
+      expect(CONFIG.common.path).toEqual('/srv/tmp/');
+      expect(CONFIG.ftp.path).toEqual('/srv/uploads/');
+      expect(CONFIG.http.path).toEqual('/srv/uploads/');
+    });
+
+    test('should return the default config if no overrides supplied', () => {
+      const CONFIG = load_config(configPath, []);
+      expect(CONFIG.common.path).toEqual('/srv/var/tmp/');
+      expect(CONFIG.ftp.path).toEqual('/tmp/');
+      expect(CONFIG.http.path).toEqual('/tmp/');
+    });
+
+    test('should return the default config if random overrides supplied', () => {
+      const CONFIG = load_config(configPath, ['does-not-exist']);
+      expect(CONFIG.common.path).toEqual('/srv/var/tmp/');
+      expect(CONFIG.ftp.path).toEqual('/tmp/');
+      expect(CONFIG.http.path).toEqual('/tmp/');
+    });
+
+    test('should return numbers for numerical fields', () => {
+      const CONFIG = load_config(configPath, ['does-not-exist']);
+      expect(CONFIG.common.basic_size_limit).toEqual(26214400);
+      expect(CONFIG.common.employee_size_limit).toEqual(52428800);
+      expect(CONFIG.common.paid_users_size_limit).toEqual(2147483648);
+    });
   });
 });
