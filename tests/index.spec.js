@@ -1,13 +1,12 @@
 //@ts-check
 
 const { load_config } = require('../src/index');
-const path = require('path');
 
 describe('load_config', () => {
   let configPath;
 
   beforeEach(() => {
-    configPath = path.resolve(__dirname, './__mocks__/settings.conf');
+    configPath = '/tests/__mocks__/settings.conf';
   });
 
   describe('function parameters', () => {

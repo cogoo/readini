@@ -1,6 +1,7 @@
 //@ts-check
 const path = require('path');
-const iniparser = require('../lib/iniparser');
+const projectPath = path.resolve();
+const iniparser = require(path.join(projectPath, '/lib/iniparser'));
 
 /**
  *
@@ -17,7 +18,7 @@ function load_config(configPath, overrides) {
   }
 
   // normalize the path
-  const normalizedPath = path.resolve(__dirname, configPath);
+  const normalizedPath = path.join(projectPath, configPath);
 
   // Load and return the config file
   return iniparser.parseSync(normalizedPath, overrides);
